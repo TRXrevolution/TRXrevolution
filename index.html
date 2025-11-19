@@ -5,12 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TRXrevolution - Simple</title>
   <style>
+    :root {
+      --bg: #0b0f19;
+      --text: #e6eef6;
+      --card: #111827;
+      --accent: #49afff;
+      --border: #222;
+      --sample: #1a2435;
+    }
+
+    body.light {
+      --bg: #f2f6ff;
+      --text: #1a1a1a;
+      --card: #ffffff;
+      --accent: #0066cc;
+      --border: #ddd;
+      --sample: #f1f6ff;
+    }
+
     body {
       font-family: system-ui, sans-serif;
       margin: 0;
-      background: #0b0f19;
-      color: #e6eef6;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
     }
+
     header {
       padding: 15px;
       display: flex;
@@ -18,11 +38,18 @@
       align-items: center;
       background: #131a29;
     }
+
+    /* Light mode khusus header */
+    body.light header {
+      background: #dbe7ff;
+    }
+
     nav a {
-      color: #7acbff;
+      color: var(--accent);
       margin: 0 10px;
       text-decoration: none;
     }
+
     .banner {
       background: #000;
       height: 180px;
@@ -32,44 +59,74 @@
       color: #fff;
       text-align: center;
     }
+
     section {
       padding: 20px;
       max-width: 900px;
       margin: auto;
     }
+
     h2 {
       margin-top: 0;
-      color: #49afff;
+      color: var(--accent);
     }
+
     .card {
-      background: #111827;
+      background: var(--card);
       padding: 15px;
       border-radius: 8px;
       margin-bottom: 20px;
+      transition: background 0.3s;
     }
+
     ul { margin-left: 18px; }
+
     footer {
       padding: 15px;
       text-align: center;
       color: #99aabb;
       margin-top: 20px;
-      border-top: 1px solid #222;
+      border-top: 1px solid var(--border);
     }
+
+    body.light footer {
+      color: #555;
+    }
+
     .sample-item {
       display: block;
-      background: #1a2435;
+      background: var(--sample);
       padding: 10px;
       border-radius: 6px;
       text-decoration: none;
-      color: #cde2ff;
+      color: var(--accent);
       margin-bottom: 8px;
+      transition: background 0.3s;
     }
+
+    /* Tombol toggle tema */
+    #themeToggle {
+      cursor: pointer;
+      padding: 8px 12px;
+      background: var(--card);
+      color: var(--accent);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: 0.3s;
+    }
+
+    #themeToggle:hover {
+      opacity: 0.7;
+    }
+
   </style>
 </head>
 <body>
 
 <header>
-  <div><strong>TRXrevolution</strong></div>
+  <div><strong>🔷 TRXrevolution</strong></div>
+
+  <button id="themeToggle">Mode Gelap 🌙</button>
 </header>
 
 <section id="tentang">
@@ -80,7 +137,7 @@
 </section>
 
 <section id="fitur">
-  <h2>Fitur TRXrevolution</h2>
+  <h2>Fitur TRXrevolution ✨</h2>
   <div class="card">
     <ul>
       <li>Playlist & Remix DJ khas</li>
@@ -93,17 +150,8 @@
   </div>
 </section>
 
-<section id="samples">
-  <h2>Sample Pack</h2>
-  <p>Download berbagai sample gratis (non-komersial).</p>
-
-  <a class="sample-item" href="#">Kick Pack Vol. 1 (4.5 MB)</a>
-  <a class="sample-item" href="#">Loop Collection 2025 (12 MB)</a>
-  <a class="sample-item" href="#">Vocal Acapella (2.8 MB)</a>
-</section>
-
 <section id="rules">
-  <h2>Larangan & Kebijakan</h2>
+  <h2>Larangan & Kebijakan ⚠️</h2>
   <div class="card">
     <ul>
       <li>Dilarang membagikan konten ilegal (bajakan, crack, virus, dll)</li>
@@ -111,12 +159,12 @@
       <li>Dilarang spam atau promosi tanpa izin</li>
       <li>Dilarang membagikan data pribadi orang lain</li>
     </ul>
-    <p>Pelanngaran dapat berakibat peringatan atau penghapusan akun.</p>
+    <p>Pelanggaran dapat berakibat peringatan atau penghapusan akun.</p>
   </div>
 </section>
 
 <section id="faq">
-  <h2>FAQ</h2>
+  <h2>FAQ 🌟</h2>
   <div class="card">
     <p><strong>Bagaimana cara gabung komunitas?</strong><br>
       Hubungi admin via WhatsApp untuk pendaftaran.
@@ -131,14 +179,41 @@
 <section id="contact">
   <h2>Kontak & Sosial</h2>
   <div class="card">
-    <p>YouTube: <a href="https://youtube.com/@TRXrevolution_1" style="color:#7acbff;">Klik di sini</a></p>
-    <p>WhatsApp: <a href="#" style="color:#7acbff;">Hubungi Admin</a></p>
+    <p>▶️ YouTube: <a href="https://youtube.com/@TRXrevolution_1" style="color:var(--accent);">Klik di sini</a></p>
+    <p>🎵 TikTok: <a href="https://www.tiktok.com/@trxrevolution_1" style="color:var(--accent);">Klik di sini</a></p>
+    <p>💬 WhatsApp: <a href="#" style="color:var(--accent);">Hubungi Admin</a></p>
   </div>
 </section>
 
 <footer>
-  © 2025 TRXrevolution — versi sederhana
+  © <span id="year"></span> TRXrevolution | All rights reserved.
 </footer>
+
+<script>
+  // Tahun otomatis
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Theme toggle logic
+  const toggleBtn = document.getElementById("themeToggle");
+
+  // Load tema dari localStorage
+  if (localStorage.getItem("themeTRXrevolution") === "light") {
+    document.body.classList.add("light");
+    toggleBtn.textContent = "Mode Terang 🌤️";
+  }
+
+  toggleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("light");
+
+    if (document.body.classList.contains("light")) {
+      toggleBtn.textContent = "Mode Gelap 🌙";
+      localStorage.setItem("themeTRXrevolution", "light");
+    } else {
+      toggleBtn.textContent = "Mode Gelap 🌙";
+      localStorage.setItem("themeTRXrevolution", "dark");
+    }
+  });
+</script>
 
 </body>
 </html>
